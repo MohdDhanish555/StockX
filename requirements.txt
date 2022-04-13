@@ -1,4 +1,4 @@
-altairaltair==4.2.0
+altair==4.2.0
 vega-datasets==0.9.0
 google-api-python-client==2.44.0
 google-auth==2.6.4
