@@ -17,7 +17,10 @@ padding = 1
 st.markdown(f""" <style>
     .appview-container .main .block-container{{
         padding-top: {padding}rem;
-    }} </style> """, unsafe_allow_html=True)
+    }}
+    #MainMenu {{visibility: hidden;}}
+    footer {{visibility: hidden;}}
+     </style> """, unsafe_allow_html=True)
 
 # SIDEBAR
 st.sidebar.image(img,width=180)
