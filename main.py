@@ -12,7 +12,7 @@ from pandas_datareader.data import DataReader
 img = Image.open('images/stockx-logo.png')
 
 # PAGE CONFIGURATION'
-st. set_page_config(page_title="StockX",layout="wide")
+st. set_page_config(page_title="StockX")
 padding = 1
 v = 2.5
 st.markdown(f""" <style>
