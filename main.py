@@ -14,16 +14,20 @@ img = Image.open('images/Stockx_logo.png')
 # PAGE CONFIGURATION'
 st. set_page_config(page_title="StockX")
 padding = 1
+v = 2.5
 st.markdown(f""" <style>
     .appview-container .main .block-container{{
         padding-top: {padding}rem;
     }}
     #MainMenu {{visibility: hidden;}}
     footer {{visibility: hidden;}}
+    .css-1oe6wy4 {{padding-top : {v}rem ;}}
+    .css-1kyxreq {{justify-content : center;
+    margin-bottom : 1rem;}}
      </style> """, unsafe_allow_html=True)
 
 # SIDEBAR
-st.sidebar.image(img,width=180)
+st.sidebar.image(img,width=150)
 # st.sidebar.title("STOCKX")
 st.sidebar.success("Welcome To StockX !!")
 
