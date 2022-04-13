@@ -9,7 +9,7 @@ from pandas_datareader.data import DataReader
 
 
 
-img = Image.open('images/Stockx_logo.png')
+img = Image.open('images/stockx-logo.png')
 
 # PAGE CONFIGURATION'
 st. set_page_config(page_title="StockX")
