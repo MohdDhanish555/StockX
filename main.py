@@ -64,7 +64,7 @@ space(2)
 
         
 
-user_input = st.text_input('Enter Stock Ticker',"AAPL",placeholder="ex: AAPL",max_chars=5).replace(" ","")
+user_input = st.text_input('Enter Stock Ticker',"AAPL",placeholder="ex: AAPL",max_chars=5).replace(" ","").upper()
 
 if user_input:
     if user_input.isalpha():
@@ -74,16 +74,21 @@ if user_input:
 
         c = get_ticker(user_input) 
         co_name = yf.download(user_input,start="2021-11-11",end="2021-11-11")
-
         data = c.history(period="3mo")
-
-        st.write(c.info['longBusinessSummary'])
-        space(2)
-        st.write(co_name)
-        space(2)
-        st.line_chart(data.values)
+        try:
+            st.write(c.info['longBusinessSummary'])
+        except:
+            st.warning(' 😭 ' + user_input + ' : This symbol seems to be delisted , Try another')
+        else:
+            st.write(c.info['longBusinessSummary'])
+            space(2)
+            st.write(co_name)
+            space(2)
+            st.line_chart(data.values)
+    else:
+        st.error(' 💔 Please enter a valid ticker !! ')
 else:
-    st.error('Please enter a valid ticker !!  ')
+    st.error('💔 Please enter a valid ticker !! ')
 
 # st.write(""" ### Apple """)
 # space(1)
@@ -154,37 +159,41 @@ end = '2019-12-31'
 st.title('Stock Trend Prediction')
 
 
-user_input = st.text_input('Enter Stock Ticker',"GOOG",placeholder="ex: AAPL",max_chars=5).replace(" ","")
+user_input = st.text_input('Enter Stock Ticker',"GOOG",placeholder="ex: AAPL",max_chars=5).replace(" ","").upper()
 if user_input:
     if user_input.isalpha():
-        df = DataReader(user_input, 'yahoo', start, end)
+        try:
+            df = DataReader(user_input, 'yahoo', start, end)
+        except:
+            st.warning(' 😭 ' + user_input + ' : This symbol seems to be delisted , Try another')
+        else:
+            #Describing Data
+            st.subheader('Data from 2010 - 2019')
+            st.write(df.describe())
 
-        #Describing Data
+            #Visualizations
 
-        st.subheader('Data from 2010 - 2019')
-        st.write(df.describe())
+            st.subheader('Closing Price vs Time chart')
+            fig = plt.figure(figsize = (12,6))
+            plt.plot(df.Close)
+            st.pyplot(fig)
 
-        #Visualizations
+            st.subheader('Closing Price vs Time chart with 100MA')
+            ma100 = df.Close.rolling(100).mean()
+            fig = plt.figure(figsize = (12,6))
+            plt.plot(ma100)
+            plt.plot(df.Close)
+            st.pyplot(fig)
 
-        st.subheader('Closing Price vs Time chart')
-        fig = plt.figure(figsize = (12,6))
-        plt.plot(df.Close)
-        st.pyplot(fig)
-
-        st.subheader('Closing Price vs Time chart with 100MA')
-        ma100 = df.Close.rolling(100).mean()
-        fig = plt.figure(figsize = (12,6))
-        plt.plot(ma100)
-        plt.plot(df.Close)
-        st.pyplot(fig)
-
-        st.subheader('Closing Price vs Time chart with 100MA & 200MA')
-        ma100 = df.Close.rolling(100).mean()
-        ma200 = df.Close.rolling(200).mean()
-        fig = plt.figure(figsize = (12,6))
-        plt.plot(ma100)
-        plt.plot(ma200, 'g')
-        plt.plot(df.Close, 'b') 
-        st.pyplot(fig)
+            st.subheader('Closing Price vs Time chart with 100MA & 200MA')
+            ma100 = df.Close.rolling(100).mean()
+            ma200 = df.Close.rolling(200).mean()
+            fig = plt.figure(figsize = (12,6))
+            plt.plot(ma100)
+            plt.plot(ma200, 'g')
+            plt.plot(df.Close, 'b') 
+            st.pyplot(fig)
+    else:
+        st.error(' 💔 Please enter a valid ticker !! ')
 else:
-    st.error('Please enter a valid ticker !!  ')
+    st.error('💔 Please enter a valid ticker !! ')
