@@ -80,9 +80,9 @@ if user_input:
         except:
             st.warning(' 😭 ' + user_input + ' : This symbol seems to be delisted , Try another')
         else:
+            st.write(co_name)
+            space(2)
             st.line_chart(data.values)
-	    space(2)	
-	    st.write(co_name)
     else:
         st.error(' 💔 Please enter a valid ticker !! ')
 else:
