@@ -18,3 +18,17 @@ footer {
     justify-content : center;
     margin-bottom : 1rem;
 }
+
+input {
+    text-transform: uppercase;
+}
+
+.css-pxxe24 {
+    visibility: hidden;
+}
+
+.vega-embed .vega-actions a:nth-child(3),
+.vega-embed .vega-actions a:nth-child(4),
+.vega-embed .vega-actions a:nth-child(5) {
+    display: none;
+}
