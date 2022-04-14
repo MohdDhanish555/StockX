@@ -13,7 +13,7 @@ st. set_page_config(page_title="StockX")
 with open('assets/style.css') as f :
     st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)
 
-img = Image.open('images/stockx-logo.png')
+img = Image.open('assets/stockx-logo.png')
 
 
 # SIDEBAR
