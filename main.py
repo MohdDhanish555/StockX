@@ -7,24 +7,14 @@ import matplotlib.pyplot as plt
 from vega_datasets import data
 from pandas_datareader.data import DataReader
 
+# PAGE CONFIGURATION
+st. set_page_config(page_title="StockX")
 
+with open('assets/style.css') as f :
+    st.markdown(f'<style>{f.read()}</style>',unsafe_allow_html=True)
 
 img = Image.open('images/stockx-logo.png')
 
-# PAGE CONFIGURATION'
-st. set_page_config(page_title="StockX")
-padding = 1
-v = 2.5
-st.markdown(f""" <style>
-    .appview-container .main .block-container{{
-        padding-top: {padding}rem;
-    }}
-    #MainMenu {{visibility: hidden;}}
-    footer {{visibility: hidden;}}
-    .css-1oe6wy4 {{padding-top : {v}rem ;}}
-    .css-1kyxreq {{justify-content : center;
-    margin-bottom : 1rem;}}
-     </style> """, unsafe_allow_html=True)
 
 # SIDEBAR
 st.sidebar.image(img,width=150)
