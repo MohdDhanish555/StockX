@@ -72,10 +72,10 @@ if user_input:
             company = yf.Ticker(user_input)
             return company
 
-        c = get_ticker(user_input) 
-        co_name = yf.download(user_input,start="2021-11-11",end="2021-11-11")
-        data = c.history(period="3mo")
         try:
+            c = get_ticker(user_input) 
+            co_name = yf.download(user_input,start="2021-11-11",end="2021-11-11")
+            data = c.history(period="3mo")
             st.write(c.info['longBusinessSummary'])
         except:
             st.warning(' 😭 ' + user_input + ' : This symbol seems to be delisted , Try another')
