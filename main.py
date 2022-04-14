@@ -1,5 +1,6 @@
 import streamlit as st
 import yfinance as yf
+import pandas as pd
 from datetime import datetime , date
 from utils import chart, db
 from PIL import Image
@@ -16,18 +17,17 @@ with open('assets/style.css') as f :
 img = Image.open('assets/stockx-logo.png')
 
 
+def space(num_lines=1):
+    """Adds empty lines to the Streamlit app."""
+    for _ in range(num_lines):
+        st.write("")
 # SIDEBAR
 st.sidebar.image(img,width=150)
-# st.sidebar.title("STOCKX")
 st.sidebar.success("Welcome To StockX !!")
 
 # BODY
 st.write("""# STOCK PREDICTIONS :chart_with_upwards_trend: """)
 
-def space(num_lines=1):
-    """Adds empty lines to the Streamlit app."""
-    for _ in range(num_lines):
-        st.write("")
 ###########################################
 
 # Data visualisation part
@@ -62,23 +62,28 @@ space(2)
 # data2 = c2.history(period="3mo")
 # data3 = c3.history(period="3mo")
 
+        
 
-user_input = st.text_input('Enter Stock Ticker',placeholder="ex: AAPL")
-if(user_input):
-    def get_ticker(user_input):
-        company = yf.Ticker(user_input)
-        return company
+user_input = st.text_input('Enter Stock Ticker',"AAPL",placeholder="ex: AAPL",max_chars=5).replace(" ","")
 
-    c = get_ticker(user_input) 
-    co_name = yf.download(user_input,start="2021-11-11",end="2021-11-11")
+if user_input:
+    if user_input.isalpha():
+        def get_ticker(user_input):
+            company = yf.Ticker(user_input)
+            return company
 
-    data = c.history(period="3mo")
+        c = get_ticker(user_input) 
+        co_name = yf.download(user_input,start="2021-11-11",end="2021-11-11")
 
-    st.write(c.info['longBusinessSummary'])
-    space(2)
-    st.write(co_name)
-    space(2)
-    st.line_chart(data.values)
+        data = c.history(period="3mo")
+
+        st.write(c.info['longBusinessSummary'])
+        space(2)
+        st.write(co_name)
+        space(2)
+        st.line_chart(data.values)
+else:
+    st.error('Please enter a valid ticker !!  ')
 
 # st.write(""" ### Apple """)
 # space(1)
@@ -88,6 +93,32 @@ if(user_input):
 # st.line_chart(data1.values)
 space(4)
 ####################################################
+# START = "2015-01-01"
+# TODAY = date.today().strftime("%Y-%m-%d")
+# ytk = pd.read_excel("assets/YahooTickerSymbols.xlsx")
+# # stk = ('GOOG', 'AAPL', 'MSFT', 'GME')
+# selected_stock = st.selectbox('Select dataset for prediction', ytk)
+# @st.cache
+# def load_data(ticker):
+#     data = yf.download(ticker, START, TODAY)
+#     data.reset_index(inplace=True)
+#     return data
+
+	
+# data_load_state = st.text('Loading data...')
+# data = load_data(selected_stock)
+# data_load_state.text('Loading data... done!')
+
+# st.subheader('Raw data')
+# st.write(data.tail())
+# space(2)
+
+
+
+
+
+
+######################################
 START = "2015-01-01"
 TODAY = date.today().strftime("%Y-%m-%d")
 stocks = ('GOOG', 'AAPL', 'MSFT', 'GME','TSLA')
@@ -152,3 +183,4 @@ plt.plot(ma100)
 plt.plot(ma200, 'g')
 plt.plot(df.Close, 'b') 
 st.pyplot(fig)
+
